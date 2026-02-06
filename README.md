@@ -1,24 +1,102 @@
-# IPL-Data-Analysis-Using-Spark
-To handle the large dataset I used Apache Spark and explored IPL dataset which consists of ball-by-ball information till 2017.
+# IPL Data Analysis Using Spark
 
-# APACHE SPARK
-This project comes under Data Analysis and Data Engineering
+A reproducible data-analysis project exploring Indian Premier League (IPL) match and ball-by-ball (delivery) data using Apache Spark. The analysis demonstrates scalable data ingestion, cleaning, aggregation, and visualization workflows to extract player- and team-level insights across seasons.
 
-The aim of building this is to explore ApacheSpark and work on Big Data.
+## Table of contents
+- [Project Overview](#project-overview)
+- [Key Analyses & Insights](#key-analyses--insights)
+- [Repository Structure](#repository-structure)
+- [Requirements](#requirements)
+- [Getting Started (Local)](#getting-started-local)
+- [How to run the notebooks / scripts](#how-to-run-the-notebooks--scripts)
+- [Sample outputs & visualizations](#sample-outputs--visualizations)
+- [Contributing](#contributing)
+- [License & Contact](#license--contact)
 
-This project has been executed in Databricks which helped me to run ApacheSpark smoothly. 
+## Project Overview
+This repository contains code, notebooks, and supporting files to analyze IPL data (matches and ball-by-ball deliveries) using Apache Spark (PySpark). The focus is on building scalable ETL and analytics pipelines to answer cricket-related questions such as top performers, team trends, match outcome patterns, and situational statistics.
 
+Typical workflows implemented:
+- Ingest and clean match and delivery datasets
+- Join, aggregate, and transform data at match/team/player levels
+- Compute advanced aggregates (strike rates, economy rates, win percentages, chase vs defend performance)
+- Visualize trends and produce season-level summaries
 
-# Successfully implemented:
-|--> Spark Session
+## Key Analyses & Insights
+- Player performance: identify leading run-scorers, wicket-takers, and consistent performers across seasons.
+- Team analysis: runs scored/conceded, toss impact, home/away advantage, and season-over-season performance.
+- Situation-aware metrics: powerplay / death-over performance, batsman strike-rate vs bowler economy by phase.
+- Head-to-head and venue-based trends and visualizations for decision-making.
 
-|-->Spark Transformation
+## Repository Structure
+- data/                       — (optional) raw CSVs or sample datasets
+- notebooks/                  — Jupyter notebooks for exploratory analysis and visualization
+- scripts/                    — PySpark scripts to run ETL and aggregations
+- outputs/                    — generated charts, tables, and CSV summaries
+- requirements.txt            — Python dependencies
+- README.md                   — this file
 
-|-->Data Analytics
+Adjust paths above to match the repository's actual layout.
 
-|-->Data Visualization
+## Requirements
+- Java 8 or 11
+- Apache Spark (2.4+ or 3.x)
+- Python 3.8+
+- pip virtualenv (recommended)
+- Python packages (see requirements.txt). Common ones:
+  - pyspark
+  - pandas
+  - matplotlib / seaborn
+  - jupyterlab / notebook
+  - findspark (optional, for local PySpark notebook setup)
 
-# Project Structure:
-IPL Dataset --> Amazon(S3) Bucket --> ApacheSpark(Tranformation) --> SQL(Analytics) --> Visualization
+## Getting Started (Local)
+1. Clone the repo:
+   git clone https://github.com/omkaryadav18/IPL-Data-Analysis-Using-Spark.git
+2. Create a virtual environment and install dependencies:
+   python -m venv .venv
+   source .venv/bin/activate    # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+3. Ensure Spark is installed or use the PySpark package with a compatible Java install.
+
+## How to run the notebooks / scripts
+- Notebooks:
+  1. Start Jupyter: jupyter lab
+  2. Open the notebooks in `notebooks/` and run cells sequentially (set correct data paths)
+- PySpark scripts:
+  - Example:
+    spark-submit --master local[4] scripts/aggregate_player_stats.py --input data/ --output outputs/player_stats.csv
+  - Replace script name and options per available scripts. See script headers or inline help for CLI flags.
+
+## Data
+This project expects IPL match-level and delivery-level CSV files (common datasets include `matches.csv` and `deliveries.csv`). If datasets are not included, you can download them from public IPL data sources (Kaggle or other public datasets) and place them in the `data/` directory.
+
+Common columns used:
+- matches: season, match_id, team1, team2, winner, toss_winner, venue, winner
+- deliveries: match_id, inning, over, ball, batsman, bowler, batsman_runs, extra_runs, total_runs, dismissal_kind
+
+## Sample outputs & visualizations
+- Top 10 run-scorers overall and by season
+- Top bowlers by wickets and economy rate (phase-specific)
+- Team performance heatmap across venues and seasons
+- Time-series trends of runs per over, aggregate strike rates, and win probabilities
+
+Snapshots of output charts are stored in `outputs/` (or generated by notebooks on run).
+
+## Reproducibility & Notes
+- Use consistent Spark configurations for local vs cluster runs (memory/executor settings).
+- When working in notebooks, set seed values where relevant for reproducible plots/aggregation order.
+- For large datasets, prefer Spark scripts over notebook cell execution.
+
+## Contributing
+- Open an issue describing the change or improvement.
+- Fork the repository, implement changes in a feature branch, and open a pull request.
+- Add tests or reproducible notebook cells where appropriate.
+- Update README and any usage instructions to reflect changes.
+
+## License & Contact
+- License: specify a license file (e.g., MIT) or add LICENSE in the repo.
+- Contact: omkaryadav18 — GitHub: https://github.com/omkaryadav18
+
 
 Dataset : https://data.world/raghu543/ipl-data-till-2017
